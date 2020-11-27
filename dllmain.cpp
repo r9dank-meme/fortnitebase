@@ -161,9 +161,7 @@ void actorloop()
 		std::string ObjName = GetObjectName(CurrentActor);
 		if (ObjName == "") continue;
 		if (strstr(ObjName.c_str(), xor_("PlayerPawn_Athena_C").c_str()))
-		{
 			Draw(CurrentActor, xor_("[PLAYER]").c_str());
-		}
 	}
 
 }
