@@ -1,3 +1,8 @@
+/* 
+    File: dllmain.cpp
+    Project: fortnitebase
+*/
+
 #pragma once
 #define RELATIVE_ADDR(addr, size) ((PBYTE)((UINT_PTR)(addr) + *(PINT)((UINT_PTR)(addr) + ((size) - sizeof(INT))) + (size)))
 #include <winscard.h>
@@ -24,16 +29,17 @@ uintptr_t PlayerController;
 uintptr_t Ulevel;
 uintptr_t Levels;
 
-uintptr_t OFFSET_OwningGameInstance = 0x0;
-uintptr_t OFFSET_LocalPlayers = 0x0;
-uintptr_t OFFSET_PlayerController = 0x0;
-uintptr_t OFFSET_AcknowledgedPawn = 0x0;
-uintptr_t OFFSET_ROOTCOMPONENT = 0x0;
-uintptr_t OFFSET_AACTORS = 0x0;
-uintptr_t OFFSET_ACTORCOUNT = 0x0;
-uintptr_t OFFSET_Levels = 0x0;
-uintptr_t OFFSET_PersistentLevel = 0x0;
-uintptr_t OFFSET_RELATIVELOCATION = 0x0;
+/* These offsets are for the UE4 game: Fortnite, you can make this unreal engine bases on changing game's data, like signatures and offsets right below. Have fun! */
+uintptr_t OFFSET_OwningGameInstance = 0x188;
+uintptr_t OFFSET_LocalPlayers = 0x38;
+uintptr_t OFFSET_PlayerController = 0x30;
+uintptr_t OFFSET_AcknowledgedPawn = 0x2A0;
+uintptr_t OFFSET_ROOTCOMPONENT = 0x130;
+uintptr_t OFFSET_AACTORS = 0x98;
+uintptr_t OFFSET_ACTORCOUNT = 0xA0;
+uintptr_t OFFSET_Levels = 0x30;
+uintptr_t OFFSET_PersistentLevel = 0x130;
+uintptr_t OFFSET_RELATIVELOCATION = 0x11C;
 
 template<typename T>
 T read(DWORD_PTR address, const T& def = T())
@@ -242,5 +248,6 @@ bool updateaddr()//add this to your draw loop whatever me good now :D and it sho
 BOOL APIENTRY DllMain(HMODULE module, DWORD reason, LPVOID reserved) {
 	if (reason == DLL_PROCESS_ATTACH) {
 		base_address = (uint64_t)GetModuleHandleW(NULL);
+		updateaddr();
 	}
 }
